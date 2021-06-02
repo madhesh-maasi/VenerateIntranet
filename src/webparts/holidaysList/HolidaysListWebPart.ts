@@ -39,15 +39,16 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
       <div class="container">
       <h4>Holiday Calendar</h4>
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="uk-tab" data-bs-toggle="tab" data-bs-target="#uk" type="button" role="tab" aria-controls="uk" aria-selected="true">United Kingdom</button>
+        <button class="nav-link active" id="india-tab" data-bs-toggle="tab" data-bs-target="#india" type="button" role="tab" aria-controls="india" aria-selected="true">India</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="india-tab" data-bs-toggle="tab" data-bs-target="#india" type="button" role="tab" aria-controls="india" aria-selected="false">India</button>
-      </li>
+      <button class="nav-link " id="uk-tab" data-bs-toggle="tab" data-bs-target="#uk" type="button" role="tab" aria-controls="uk" aria-selected="false">United Kingdom</button>
+    </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="uk-holidays tab-pane fade show active " id="uk" role="tabpanel" aria-labelledby="uk-tab">
+      <div class="uk-holidays tab-pane fade  " id="uk" role="tabpanel" aria-labelledby="uk-tab">
       <div class="holiday d-flex justify-content-between">
       <div class="holiday-day">New Year</div>
       <div class="holiday-date">01/01/2021</div>
@@ -57,7 +58,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
       <div class="holiday-date">12/25/2021</div> 
       </div>
       </div>
-      <div class="tab-pane fade" id="india" role="tabpanel" aria-labelledby="india-tab">
+      <div class="tab-pane fade show active" id="india" role="tabpanel" aria-labelledby="india-tab">
       
       <div class="accordion mt-2" id="accordionExample">  
   <div class="accordion-item">
@@ -66,7 +67,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
         Bangalore
       </button>  
     </h2>        
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
       <div class="holiday d-flex justify-content-between">
       <div class="holiday-day">New Year</div>
@@ -86,7 +87,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
         Kolkata
       </button>
     </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
       <div class="holiday d-flex justify-content-between">
       <div class="holiday-day">New Year</div>
@@ -106,7 +107,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
         Mumbai
       </button>
     </h2>
-    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
       <div class="holiday d-flex justify-content-between">
       <div class="holiday-day">New Year</div>
@@ -126,7 +127,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
         Weekend Holidays
       </button>
     </h2>
-    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
       <div class="accordion-body">
       <div class="holiday d-flex justify-content-between">
       <div class="holiday-day">New Year</div>
@@ -274,7 +275,7 @@ function getIndiaHolidays()
       ${arrRegions[0][i]}
       </button>
     </h2>
-    <div id="collapse${i}" class="accordion-collapse collapse show" aria-labelledby="heading${i}" data-bs-parent="#accordionExample">
+    <div id="collapse${i}" class="accordion-collapse collapse " aria-labelledby="heading${i}" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         ${getregiondays(arrRegions[0][i])}
       </div>

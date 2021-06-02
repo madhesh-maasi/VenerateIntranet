@@ -8,6 +8,12 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './MeetTheTeamWebPart.module.scss';
 import * as strings from 'MeetTheTeamWebPartStrings';
+import * as $ from "jquery";
+import { sp } from "@pnp/pnpjs";
+import * as moment from "moment";
+import { graph } from "@pnp/graph";
+import "@pnp/graph/users";
+import "@pnp/graph/photos";
 import "../../ExternalRef/css/style.css";
 import "../../ExternalRef/css/bootstrap.css";
 import "../../ExternalRef/js/bootstrap.js";
@@ -16,6 +22,17 @@ export interface IMeetTheTeamWebPartProps {
 }
 
 export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTeamWebPartProps> {
+
+  public onInit(): Promise<void> {
+    return super.onInit().then((_) => {
+      sp.setup({
+        spfxContext: this.context,
+      });
+      graph.setup({
+        spfxContext: this.context
+      });
+    });
+  }
 
   public render(): void {
     this.domElement.innerHTML = `
@@ -91,360 +108,88 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
       
       </div>
       <div class="team-employees d-flex flex-wrap"> 
-
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-      <div class="section-employee d-flex flex-column border m-3">
-      <div class="profile-cover mb-3">   
-      <img class="" src ="https://homepages.cae.wisc.edu/~ece533/images/cat.png"  alt="user">
-      </div>    
-      
-      <div class="d-flex flex-column p-3">
-      <div class="d-flex justify-content-between mb-3">
-      <div>
-      <h5 class="mb-0">Chandru D</h5>
-      <p class="designation mb-0">Designer</p>
-      </div>
-      <div class="c-img">
-      <div class="c-mail"></div>
-      </div> 
-      </div> 
-      <div class="d-flex justify-content-between mb-3"> 
-      <div class="date UDetail">
-       <div class="doj mb-2">
-       <h6 class="mb-0">DOJ</h6>  
-       <p class="mb-0">02-Nov-16</p>
-       </div>
-       <div class="doj ">
-       <h6 class="mb-0">DOB</h6>
-       <p class="mb-0">02-Nov-95</p>
-       </div>
-       </div>
-       <div class="userDepart UDetail">
-       <h6 class="mb-0">Department</h6>
-       <p class="mb-0">Delivery</p>
-       <p class="mb-0">Leadership Team</p>
-       </div>
-       
-      </div>
-      <div class="user-info d-flex justify-content-between">
-      <div class="user-Country UDetail">
-      <h6 class="mb-0">Country</h6>
-      <p class="m-0">India</p>
-      </div>
-      <div class="user-House UDetail">
-      <h6 class="mb-0">House name</h6>
-      <p class="m-0">Ravenclaw</p>
-      </div>
-      
-      </div>
-      </div>
-
-      </div>
-
-
-
-
       </div>
       </div> 
       </div>  
     `;
+   // this.getGraphUsers();
+    this.getAllUsers(); 
+  }
+  async getGraphUsers()
+  {
+    const allUsers = await graph.users().then((users)=>{
+      console.log(users);
+    });
+
+  }
+  async getAllUsers()
+  {
+    var html=""
+    var deptHTML="";
+    await sp.web.lists.getByTitle("MeetTheTeam").items.top(5000).select("*,EmployeeName/EMail").expand("EmployeeName").filter("Department ne 'Delivery (Utopus)'").get().then(async (items: any[]) => 
+    {
+      console.log(items);
+      if(items.length>0){
+        for(let i=0;i<items.length;i++)
+        {
+          var fName = items[i].Title.split(" ")[0].charAt(0);
+          var lName=items[i].Title.split(" ")[items[i].Title.split(" ").length-1].charAt(0);
+          deptHTML=""
+          items[i].Department.map((r)=>{
+            deptHTML+=` <p class="mb-0">${r}</p>`
+          });
+          html+=`<div class="section-employee d-flex flex-column border m-3">
+          <div class="profile-cover mb-3">   
+          <div id="profileImage">${fName+lName}</div>
+          <!--<img class="" src="https://homepages.cae.wisc.edu/~ece533/images/cat.png" alt="user">-->
+          </div>    
+          
+          <div class="d-flex flex-column p-3">
+          <div class="d-flex justify-content-between mb-3">
+          <div>
+          <h5 class="mb-0">${items[i].Title?items[i].Title:"N/A"}</h5>
+          <p class="designation mb-0">${items[i].Designation?items[i].Designation:"N/A"}</p>
+          </div>
+          <div class="c-img">
+          <div class="c-mail"></div>
+          </div> 
+          </div> 
+          <div class="d-flex justify-content-between mb-3"> 
+          <div class="date UDetail">
+           <div class="doj mb-2">
+           <h6 class="mb-0">DOJ</h6>  
+           <p class="mb-0">${items[i].DOJ?moment(items[i].DOJ).format("DD/MM/YYYY"):"N/A"}</p>
+           </div>
+           <div class="doj ">
+           <h6 class="mb-0">DOB</h6>
+           <p class="mb-0">${items[i].DOBOfficial?moment(items[i].DOBOfficial).format("DD/MM/YYYY"):"N/A"}</p>
+           </div>
+           </div>
+           <div class="userDepart UDetail">
+           <h6 class="mb-0">Department</h6>
+          ${deptHTML?deptHTML:"N/A"}
+           </div>
+           
+          </div>
+          <div class="user-info d-flex justify-content-between">
+          <div class="user-Country UDetail">
+          <h6 class="mb-0">Country</h6>
+          <p class="m-0">${items[i].Country?items[i].Country:"N/A"}</p>
+          </div>
+          <div class="user-House UDetail">
+          <h6 class="mb-0">House name</h6>
+          <p class="m-0">${items[i].HouseName?items[i].HouseName:"N/A"}</p>
+          </div>
+          
+          </div>
+          </div>
+      
+          </div>`
+        }
+        $('.team-employees').html("")
+        $('.team-employees').html(html)
+      }
+    });
   }
 
   protected get dataVersion(): Version {
