@@ -26,7 +26,7 @@ var itemid:any;
 var propertyvalue="Getting started checklist";
 var stralreadyaddentries;
 var arrAlreadyAddedchecklists=[];
-
+var alluserData=[];
 export interface ICheckListWebPartProps {
   description: string;
 }
@@ -68,6 +68,7 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
   
    
   <div class="todo-list" id="divtodolist">
+
     <!--<label class="todo"> 
       <input class="todo__state" type="checkbox" />
       
@@ -110,29 +111,32 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
       <div class="todo__text">Update your Outlook profile: Add in your full name, designation, a picture, description etc; to help people know who you are at Venerate</div>
     </label>-->
   </div>`;
-
+  // propertyvalue?$('#header-name').text(propertyvalue):$('#header-name').text("")
   checkuseralreadyinlist();
+
   
 
-  $(document).on("click", ".clschkbox",function()
+  $(document).on("click", ".clschkbox",(e)=>
   {
-    arrcheckedLists=[];
-      $('.clschkbox').each(function()
-      {
-          if($(this).prop('checked'))
-          {
-            arrcheckedLists.push($(this).attr('data-id'));
-          }
-      });
+    // $(this).data("data-id");
+    // console.log(e);
+    // arrcheckedLists=[];
+    //   $('.clschkbox').each(function()
+    //   {
+    //       if($(this).prop('checked'))
+    //       {
+    //         arrcheckedLists.push($(this).attr('data-id'));
+    //       }
+    //   });
 
-      checkedvalues = $.map(arrcheckedLists, function(val,index) {
-        var str = val;
-            return str;
-        }).join(";");
+    //   checkedvalues = $.map(arrcheckedLists, function(val,index) {
+    //     var str = val;
+    //         return str;
+    //     }).join(";");
       
-
-        
-        insertchecklist();
+        var selectedItemId=e.target.getAttribute('data-id');
+        var checkeedData=alluserData.filter((i)=>i.TypeOfCheckList.ID==parseInt(selectedItemId)&&i.EmployeeName.EMail.toLowerCase()==UserEmail.toLowerCase());
+        checkeedData.length==0?insertchecklist(selectedItemId):deleteItemFromList(checkeedData[0].ID)
   });
  
 
@@ -174,6 +178,19 @@ const CheckboxDesign = () =>
 
 } 
 
+async function deleteItemFromList(params) {
+  await sp.web.lists.getByTitle("Getting Started : Checklist").items.getById(params).delete().then(()=>{refreshList();console.log('deleted')});
+}
+
+async function refreshList() {
+  await sp.web.lists.getByTitle("Getting Started : Checklist").items.top(5000).select("EmployeeName/EMail,SelectedChecklists,ID,TypeOfCheckList/ID").expand("EmployeeName,TypeOfCheckList").filter("EmployeeName/EMail eq '"+UserEmail+"'").get().then((items: any[]) => 
+  {
+    alluserData=[];
+    if(items.length>0)
+    alluserData=items;
+  });
+}
+
 async function getChecklist(Checklistname)
 {
   var html="";  
@@ -185,7 +202,7 @@ async function getChecklist(Checklistname)
       if(items.length>0)
       {
 
-      
+      html+=`<h3 id="header-name">${propertyvalue}</h3>`
       for(var i=0;i<items.length;i++)
       {
         
@@ -212,11 +229,11 @@ async function getChecklist(Checklistname)
 
       $("#divtodolist").html("");
       $("#divtodolist").html(html);
-
+     
     }
     else
     {
-      $("#divtodolist").html("No Records Found");
+      $("#divtodolist").html(`<h3 id="header-name"></h3> No Records Found`);
     }
 
     //CheckboxDesign();
@@ -229,27 +246,24 @@ async function getChecklist(Checklistname)
 
 async function checkuseralreadyinlist()
 {
-  
-
   await sp.web.currentUser.get().then(async function(res)
   { 
      UserID=res.Id;
      await true;
   })
 
-  await sp.web.lists
-    .getByTitle("Getting Started : Checklist")
-    .items.top(5000).select("EmployeeName/EMail,SelectedChecklists,ID").expand("EmployeeName").filter("EmployeeName/EMail eq '"+UserEmail+"'").get().then((items: any[]) => 
+  await sp.web.lists.getByTitle("Getting Started : Checklist").items.top(5000).select("EmployeeName/EMail,SelectedChecklists,ID,TypeOfCheckList/ID").expand("EmployeeName,TypeOfCheckList").filter("EmployeeName/EMail eq '"+UserEmail+"'").get().then((items: any[]) => 
     {
       
       if(items.length>0)
       {
+          alluserData=items;
           flgcheckuseralreadyinlist=true;
           itemid=items[0].ID;
-
-          if(items[0].SelectedChecklists)
-          arrAlreadyAddedchecklists=items[0].SelectedChecklists.split(";");
-
+          items.map((item)=>{
+            if(item.TypeOfCheckList.ID)
+            arrAlreadyAddedchecklists.push(item.TypeOfCheckList.ID)
+          });
       }
       
       getChecklist(propertyvalue);
@@ -260,42 +274,43 @@ async function checkuseralreadyinlist()
       });
 }
 
-async function insertchecklist()
+async function insertchecklist(selectedItemId)
 {
 
-  if(!flgcheckuseralreadyinlist)
-  {
+  // if(!flgcheckuseralreadyinlist)
+  // {
+    var intitemId = parseInt(selectedItemId)
     var requestdata=
     {
       EmployeeNameId:UserID,
-      SelectedChecklists:checkedvalues
+      TypeOfCheckListId:intitemId
     };
       await sp.web.lists.getByTitle("Getting Started : Checklist").items.add(requestdata).then(function (data) 
       {
        
-            flgcheckuseralreadyinlist=true;
             itemid=data.data.ID;
+            refreshList();
   
         })
         .catch(function (error) {
           ErrorCallBack(error, "insertchecklist");
         });
-  }
-else
-{
-  var requestdata=
-  {
-    EmployeeNameId:UserID,
-    SelectedChecklists:checkedvalues
-  };
-    await sp.web.lists.getByTitle("Getting Started : Checklist").items.getById(itemid).update(requestdata).then(function (data) 
-    {
-     console.log("updated");
-      })
-      .catch(function (error) {
-        ErrorCallBack(error, "insertchecklistupdate");
-      });
-}
+  // }
+// else
+// {
+//   var requestdata=
+//   {
+//     EmployeeNameId:UserID,
+//     SelectedChecklists:checkedvalues
+//   };
+//     await sp.web.lists.getByTitle("Getting Started : Checklist").items.getById(itemid).update(requestdata).then(function (data) 
+//     {
+//      console.log("updated");
+//       })
+//       .catch(function (error) {
+//         ErrorCallBack(error, "insertchecklistupdate");
+//       });
+// }
   
       
 }
