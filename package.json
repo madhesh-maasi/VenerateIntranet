@@ -17,7 +17,9 @@
     "@microsoft/sp-office-ui-fabric-core": "1.11.0",
     "@microsoft/sp-property-pane": "1.11.0",
     "@microsoft/sp-webpart-base": "1.11.0",
-    "jquery": "^3.6.0"
+    "@pnp/pnpjs": "^2.5.0",
+    "jquery": "^3.6.0",
+    "npm-install": "^1.7.4"
   },
   "devDependencies": {
     "@microsoft/sp-build-web": "1.11.0",

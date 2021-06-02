@@ -8,9 +8,23 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './CheckListWebPart.module.scss';
 import * as strings from 'CheckListWebPartStrings';
+
+import * as $ from "jquery";
+import { sp } from "@pnp/pnpjs";
 import "../../ExternalRef/css/style.css";
 import "../../ExternalRef/css/bootstrap.css";
 import "../../ExternalRef/js/bootstrap.js";
+var alertify: any = require("../../ExternalRef/js/alertify.min.js");
+
+var arrcheckedLists=[];
+var checkedvalues;
+var flgcheckuseralreadyinlist=false;
+var UserEmail;
+var UserID:any;
+var itemid:any;
+
+var propertyvalue="Getting started checklist";
+var stralreadyaddentries;
 
 export interface ICheckListWebPartProps {
   description: string;
@@ -18,7 +32,19 @@ export interface ICheckListWebPartProps {
 
 export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWebPartProps> {
 
+  public onInit(): Promise<void> {
+    return super.onInit().then((_) => {
+      sp.setup({
+        spfxContext: this.context,
+      });
+    });
+  }
+
   public render(): void {
+    
+    UserEmail=this.context.pageContext.user.email;
+    propertyvalue=this.properties.description;
+
     this.domElement.innerHTML = `
     <svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
     <defs> 
@@ -40,8 +66,8 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
   </svg>  
   
    
-  <div class="todo-list">
-    <label class="todo"> 
+  <div class="todo-list" id="divtodolist">
+    <!--<label class="todo"> 
       <input class="todo__state" type="checkbox" />
       
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 25" class="todo__icon">
@@ -81,9 +107,35 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
       </svg>
       
       <div class="todo__text">Update your Outlook profile: Add in your full name, designation, a picture, description etc; to help people know who you are at Venerate</div>
-    </label>
+    </label>-->
   </div>`;
-  CheckboxDesign();
+
+  checkuseralreadyinlist();
+  
+
+  $(document).on("click", ".clschkbox",function()
+  {
+    arrcheckedLists=[];
+      $('.clschkbox').each(function()
+      {
+          if($(this).prop('checked'))
+          {
+            arrcheckedLists.push($(this).attr('data-id'));
+          }
+      });
+
+      checkedvalues = $.map(arrcheckedLists, function(val,index) {
+        var str = val;
+            return str;
+        }).join(";");
+      
+
+        
+        insertchecklist();
+  });
+ 
+
+
   }
 
   protected get dataVersion(): Version {
@@ -102,7 +154,8 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                  //label: strings.DescriptionFieldLabel
+                  label:"Type Of Checklist"
                 })
               ]
             }
@@ -112,8 +165,147 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
     };
   }
 }
-const CheckboxDesign = () =>{
+const CheckboxDesign = () =>
+{
   setTimeout(()=>{
     document.querySelector('input[type="checkbox"]').setAttribute('checked','true');
   },100); 
+
 } 
+
+async function getChecklist(Checklistname)
+{
+  var html="";  
+  await sp.web.lists
+    .getByTitle("Getting Started Checklist")
+    .items.filter("TypeOfChecklist eq '"+Checklistname+"'").get() .then((items: any[]) => 
+    {
+      
+      if(items.length>0)
+      {
+
+      
+      for(var i=0;i<items.length;i++)
+      {
+        html+=`    <label class="todo">
+        <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox"/>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        
+        <div class="todo__text" data-id="${items[i].ID}">${items[i].Checklist}</div>
+      </label>`;
+      }
+
+      $("#divtodolist").html("");
+      $("#divtodolist").html(html);
+
+    }
+    else
+    {
+      $("#divtodolist").html("No Records Found");
+    }
+
+    //CheckboxDesign();
+
+    })
+    .catch(function (error) {
+      ErrorCallBack(error, "getChecklist");
+    });
+}
+
+async function checkuseralreadyinlist()
+{
+  
+
+  await sp.web.currentUser.get().then(async function(res)
+  { 
+     UserID=res.Id;
+     await true;
+  })
+
+  await sp.web.lists
+    .getByTitle("Getting Started : Checklist")
+    .items.top(5000).select("EmployeeName/EMail,SelectedChecklists,ID").expand("EmployeeName").filter("EmployeeName/EMail eq '"+UserEmail+"'").get().then((items: any[]) => 
+    {
+      
+      if(items.length>0)
+      {
+          flgcheckuseralreadyinlist=true;
+          itemid=items[0].ID;
+
+      }
+      
+      getChecklist(propertyvalue);
+
+      })
+      .catch(function (error) {
+        ErrorCallBack(error, "checkuseralreadyinlist");
+      });
+}
+
+async function insertchecklist()
+{
+
+  if(!flgcheckuseralreadyinlist)
+  {
+    var requestdata=
+    {
+      EmployeeNameId:UserID,
+      SelectedChecklists:checkedvalues
+    };
+      await sp.web.lists.getByTitle("Getting Started : Checklist").items.add(requestdata).then(function (data) 
+      {
+       
+            flgcheckuseralreadyinlist=true;
+            itemid=data.data.ID;
+  
+        })
+        .catch(function (error) {
+          ErrorCallBack(error, "insertchecklist");
+        });
+  }
+else
+{
+  var requestdata=
+  {
+    EmployeeNameId:UserID,
+    SelectedChecklists:checkedvalues
+  };
+    await sp.web.lists.getByTitle("Getting Started : Checklist").items.getById(itemid).update(requestdata).then(function (data) 
+    {
+     console.log("updated");
+      })
+      .catch(function (error) {
+        ErrorCallBack(error, "insertchecklistupdate");
+      });
+}
+  
+      
+}
+
+function AlertMessage(strMewssageEN) {
+  alertify
+    .alert()
+    .setting({
+      label: "OK",
+
+      message: strMewssageEN,
+
+      onok: function () {
+        window.location.href = "#";
+      },
+    })
+    .show()
+    .setHeader("<em>Confirmation</em> ")
+    .set("closable", false);
+}
+
+async function ErrorCallBack(error, methodname) 
+{
+  AlertMessage("Something went wrong.please contact system admin");
+}
