@@ -19,6 +19,7 @@
     "@microsoft/sp-webpart-base": "1.11.0",
     "@pnp/pnpjs": "^2.5.0",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "npm-install": "^1.7.4"
   },
   "devDependencies": {

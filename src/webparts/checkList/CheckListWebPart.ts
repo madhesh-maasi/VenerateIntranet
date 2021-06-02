@@ -25,6 +25,7 @@ var itemid:any;
 
 var propertyvalue="Getting started checklist";
 var stralreadyaddentries;
+var arrAlreadyAddedchecklists=[];
 
 export interface ICheckListWebPartProps {
   description: string;
@@ -178,7 +179,7 @@ async function getChecklist(Checklistname)
   var html="";  
   await sp.web.lists
     .getByTitle("Getting Started Checklist")
-    .items.filter("TypeOfChecklist eq '"+Checklistname+"'").get() .then((items: any[]) => 
+    .items.filter("TypeOfChecklist eq '"+Checklistname+"'").orderBy("Order",true).get() .then((items: any[]) => 
     {
       
       if(items.length>0)
@@ -187,8 +188,16 @@ async function getChecklist(Checklistname)
       
       for(var i=0;i<items.length;i++)
       {
+        
+        var strChecked="";
+        for(var j=0;j<arrAlreadyAddedchecklists.length;j++)
+        {
+            if(items[i].ID==arrAlreadyAddedchecklists[j])
+            strChecked="checked=true";
+        }
+        
         html+=`    <label class="todo">
-        <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox"/>
+        <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox" ${strChecked}/>
         
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 25" class="todo__icon">
           <use xlink:href="#todo__line" class="todo__line"></use>
@@ -237,6 +246,9 @@ async function checkuseralreadyinlist()
       {
           flgcheckuseralreadyinlist=true;
           itemid=items[0].ID;
+
+          if(items[0].SelectedChecklists)
+          arrAlreadyAddedchecklists=items[0].SelectedChecklists.split(";");
 
       }
       
