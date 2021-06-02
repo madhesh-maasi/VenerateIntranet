@@ -24,6 +24,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
     this.domElement.innerHTML = `
       <div class="holiday-section">
       <div class="container">
+      <h4>Holiday Calendar</h4>
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="uk-tab" data-bs-toggle="tab" data-bs-target="#uk" type="button" role="tab" aria-controls="uk" aria-selected="true">United Kingdom</button>
