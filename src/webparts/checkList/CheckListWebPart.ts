@@ -8,7 +8,9 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './CheckListWebPart.module.scss';
 import * as strings from 'CheckListWebPartStrings';
-import "../../ExternalRef/css/style.css"
+import "../../ExternalRef/css/style.css";
+import "../../ExternalRef/css/bootstrap.css";
+import "../../ExternalRef/js/bootstrap.js";
 
 export interface ICheckListWebPartProps {
   description: string;

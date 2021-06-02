@@ -148,3 +148,13 @@ body {
   width: 100%;
   margin: auto;
 }
+.holiday-section {
+  max-width: 50rem;
+  margin: auto;
+}
+.holiday {
+  padding: 1rem;
+  box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
+}

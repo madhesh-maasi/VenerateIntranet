@@ -9,10 +9,28 @@
           "manifest": "./src/webparts/checkList/CheckListWebPart.manifest.json"
         }
       ]
+    },
+    "holidays-list-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/holidaysList/HolidaysListWebPart.js",
+          "manifest": "./src/webparts/holidaysList/HolidaysListWebPart.manifest.json"
+        }
+      ]
+    },
+    "meet-the-team-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/meetTheTeam/MeetTheTeamWebPart.js",
+          "manifest": "./src/webparts/meetTheTeam/MeetTheTeamWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "CheckListWebPartStrings": "lib/webparts/checkList/loc/{locale}.js"
+    "CheckListWebPartStrings": "lib/webparts/checkList/loc/{locale}.js",
+    "HolidaysListWebPartStrings": "lib/webparts/holidaysList/loc/{locale}.js",
+    "MeetTheTeamWebPartStrings": "lib/webparts/meetTheTeam/loc/{locale}.js"
   }
 }
