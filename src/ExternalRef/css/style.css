@@ -149,12 +149,59 @@ body {
   margin: auto;
 }
 .holiday-section {
-  max-width: 50rem;
-  margin: auto;
+  max-width: 20rem;
+}
+.holiday-section .nav-tabs {
+  border-bottom: 0 !important;
+}
+.holiday-section .nav-link {
+  color: #000 !important;
+}
+.accordion-body {
+  padding: 0 0.125rem !important;
 }
 .holiday {
-  padding: 1rem;
-  box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: -1px 3px 66px -9px rgba(0, 0, 0, 0.6);
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+}
+.holiday-section .nav-tabs .nav-link {
+  border: 0 !important;
+}
+.holiday-section .nav-tabs .nav-link:hover {
+  border: 0 !important;
+}
+.holiday-section .nav-link.active:hover {
+  border-bottom: 2px solid #004e8c !important;
+}
+.holiday-section .nav-link.active {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 2px solid #004e8c !important;
+}
+.holiday-section button.accordion-button {
+  color: #004e8c;
+  font-weight: bold;
+  font-size: 14px;
+}
+.holiday-section .accordion-item:first-of-type .accordion-button {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+.holiday-section .accordion-item:last-of-type {
+  border-radius: 0 !important;
+}
+.holiday-section .accordion-item:last-of-type .accordion-button.collapsed {
+  border-radius: 0 !important;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.125); */
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.holiday-section .accordion-item {
+  border: 0 !important;
+}
+.holiday-section .accordion {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
