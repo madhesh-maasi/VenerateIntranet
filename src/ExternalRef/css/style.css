@@ -33,7 +33,7 @@
 .todo-list {
   background: #fff;
   font-size: 20px;
-  width: 70rem;
+  width: 67rem;
   margin: auto;
   padding: 0.5rem 1rem;
   /* box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2); */
@@ -219,6 +219,10 @@ body {
 }
 .holiday-section .nav-tabs {
   border-bottom: 0 !important;
+}
+#header-name
+{
+  color:#000000 !important;
 }
 /*
 .holiday-section .nav-link.active,

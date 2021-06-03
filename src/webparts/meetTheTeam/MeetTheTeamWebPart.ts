@@ -21,6 +21,7 @@ export interface IMeetTheTeamWebPartProps {
 }
 var allData=[];
 var changedData=[];
+var leadershipData=[];
 var selectedDesignation;
 var selectedDept;
 var selectedDOJ,selectedDOB,selectedCountry,selectedHousename;
@@ -110,11 +111,20 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
 
     $("#txtSearch").on("keyup", () =>{
       var value = $("#txtSearch").val().toLowerCase();
-     var filteredData=allData.filter(function(n) {
-       if(n.name)
-       return n.name.toLowerCase().indexOf(value.toLowerCase())>=0
-      });
-      this.bindFilterArray(filteredData);
+      if(value)
+      {
+        var filteredData=allData.filter(function(n) {
+          if(n.name)
+          return n.name.toLowerCase().indexOf(value.toLowerCase())>=0
+         });
+         this.bindFilterArray(filteredData);
+      }
+      else
+      {
+        this.dataBinding(leadershipData)
+      }
+
+      
     });
 
 
@@ -125,10 +135,18 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
        selectedDOB =$('#DOB-append').val();
        selectedCountry =$('#Country-append').val();
        selectedHousename =$('#house-append').val();
-       var filteredData = allData.filter((e) => { 
-         return (!selectedDesignation || e.designation === selectedDesignation) && (!selectedDept || e.department.indexOf(selectedDept)>=0) && (!selectedDOJ || e.dojMonth === selectedDOJ) && (!selectedDOB || e.dobMonth === selectedDOB) && (!selectedCountry || e.country === selectedCountry) && (!selectedHousename || e.housename === selectedHousename);
-       });
-       this.bindFilterArray(filteredData);
+       if(selectedDept||selectedCountry||selectedHousename)
+       {
+        var filteredData = allData.filter((e) => { 
+          return (!selectedDesignation || e.designation === selectedDesignation) && (!selectedDept || e.department.indexOf(selectedDept)>=0) && (!selectedDOJ || e.dojMonth === selectedDOJ) && (!selectedDOB || e.dobMonth === selectedDOB) && (!selectedCountry || e.country === selectedCountry) && (!selectedHousename || e.housename === selectedHousename);
+        });
+        this.bindFilterArray(filteredData);
+       }
+       else
+       {
+        this.dataBinding(leadershipData);
+       }
+       
     })
   }
 
@@ -225,80 +243,20 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
     var designationHTML="";
     await sp.web.lists.getByTitle("MeetTheTeam").items.top(5000).select("*,EmployeeName/EMail").expand("EmployeeName").filter("Department ne 'Delivery (Utopus)'").get().then(async (list: any[]) => 
     {
-      // console.log(list);
+
       let items = [];
       let nonLeader = [];
       list.forEach((li)=>{
         (li.Department.indexOf("Leadership Team")>=0)?items.push(li):nonLeader.push(li);
       });
+      leadershipData=items;
       Array.prototype.push.apply(items,nonLeader); 
-      // console.log(items);
-      // console.log(nonLeader);
-      
-      if(items.length>0){
-        for(let i=0;i<items.length;i++)
-        {
-          
-          var fName = items[i].Title.split(" ")[0].charAt(0);
-          var lName=items[i].Title.split(" ")[items[i].Title.split(" ").length-1].charAt(0);
 
-          allData.push({"initials":fName+lName,"department":items[i].Department,"name":items[i].Title,"designation":items[i].Designation,"doj":items[i].DOJ,"dob":items[i].DOBOfficial,"country":items[i].Country,"housename":items[i].HouseName,"dojMonth":moment(items[i].DOJ, "DD-MM-YYYY").format('MM'),"dobMonth":moment(items[i].DOBOfficial, "DD-MM-YYYY").format('MM'),"EmployeeEmail":items[i].EmployeeName?items[i].EmployeeName.EMail:"","CNumber":items[i].ContactNumber});
+      var uniq = {}
+      var arrFiltered = items.filter(obj => !uniq[obj.Designation] && (uniq[obj.Designation] = true));
+      console.log('arrFiltered', arrFiltered);
 
-          deptHTML=""
-          items[i].Department.map((r)=>{
-            deptHTML+=` <p class="mb-0">${r}</p>`
-          });
-          html+=`<div class="section-employee d-flex flex-column border m-3">
-          <div class="profile-cover ${items[i].HouseName} mb-3">   
-          <div id="profileImage">${fName+lName}</div>
-          <!--<img class="" src="https://homepages.cae.wisc.edu/~ece533/images/cat.png" alt="user">-->
-          </div>    
-           
-          <div class="d-flex flex-column p-3">
-          <div class="d-flex justify-content-between mb-3">
-          <div>
-          <h5 class="mb-0">${items[i].Title?items[i].Title:"N/A"}</h5>
-          <p class="designation mb-0">${items[i].Designation?items[i].Designation:"N/A"}</p>
-          </div>
-          <div class="c-img">
-          <a href="mailto:${items[i].EmployeeName?items[i].EmployeeName.EMail:""}"><div class="c-mail"></div></a>
-          </div> 
-          </div> 
-          <div class="d-flex justify-content-between mb-3"> 
-          <div class="userNumber UDetail">
-          <h6 class="mb-0">Contact No</h6>
-          <p>${items[i].ContactNumber?items[i].ContactNumber:"N/A"}</p>
-          </div>
-           <div class="userDepart UDetail">
-           <h6 class="mb-0">Department</h6>
-          ${deptHTML?deptHTML:"N/A"}
-           </div>
-           
-          </div>
-          <div class="user-info d-flex justify-content-between">
-          <div class="user-Country UDetail">
-          <h6 class="mb-0">Country</h6>
-          <p class="m-0">${items[i].Country?items[i].Country:"N/A"}</p>
-          </div>
-          <div class="user-House UDetail">
-          <h6 class="mb-0">House name</h6>
-          <p class="m-0">${items[i].HouseName?items[i].HouseName:"N/A"}</p>
-          </div>
-          
-          </div>
-          </div>
-      
-          </div>`
-        }
-        var uniq = {}
-        var arrFiltered = items.filter(obj => !uniq[obj.Designation] && (uniq[obj.Designation] = true));
-        console.log('arrFiltered', arrFiltered)
-        
-
-        $('.team-employees').html("")
-        $('.team-employees').html(html);
-
-        if(arrFiltered.length>0)
+      if(arrFiltered.length>0)
         {
           designationHTML+="<option value=''>select</option>"
           arrFiltered.map((m)=>{
@@ -308,8 +266,83 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
           });
         }
         $('#Designation-append').append(designationHTML);
+
+     
+      if(items.length>0){
+        for(let i=0;i<items.length;i++)
+        {
+          
+          var fName = items[i].Title.split(" ")[0].charAt(0);
+          var lName=items[i].Title.split(" ")[items[i].Title.split(" ").length-1].charAt(0);
+
+          allData.push({"initials":fName+lName,"department":items[i].Department,"name":items[i].Title,"designation":items[i].Designation,"doj":items[i].DOJ,"dob":items[i].DOBOfficial,"country":items[i].Country,"housename":items[i].HouseName,"dojMonth":moment(items[i].DOJ, "DD-MM-YYYY").format('MM'),"dobMonth":moment(items[i].DOBOfficial, "DD-MM-YYYY").format('MM'),"EmployeeEmail":items[i].EmployeeName?items[i].EmployeeName.EMail:"","CNumber":items[i].ContactNumber});
+          if(items.length-1==i)
+          this.dataBinding(items);        
+        }      
       }
     });
+  }
+
+  async dataBinding(items){
+    var deptHTML="";
+    var html=""
+    for(let i=0;i<items.length;i++)
+    {
+      if(items[i].Department.indexOf("Leadership Team")>=0)
+      {
+        var fName = items[i].Title.split(" ")[0].charAt(0);
+        var lName=items[i].Title.split(" ")[items[i].Title.split(" ").length-1].charAt(0);
+
+        deptHTML=""
+        items[i].Department.map((r)=>{
+          deptHTML+=` <p class="mb-0">${r}</p>`
+        });
+        html+=`<div class="section-employee d-flex flex-column border m-3">
+        <div class="profile-cover ${items[i].HouseName} mb-3">   
+        <div id="profileImage">${fName+lName}</div>
+        <!--<img class="" src="https://homepages.cae.wisc.edu/~ece533/images/cat.png" alt="user">-->
+        </div>    
+         
+        <div class="d-flex flex-column p-3">
+        <div class="d-flex justify-content-between mb-3">
+        <div>
+        <h5 class="mb-0">${items[i].Title?items[i].Title:"N/A"}</h5>
+        <p class="designation mb-0">${items[i].Designation?items[i].Designation:"N/A"}</p>
+        </div>
+        <div class="c-img">
+        <a href="mailto:${items[i].EmployeeName?items[i].EmployeeName.EMail:""}"><div class="c-mail"></div></a>
+        </div> 
+        </div> 
+        <div class="d-flex justify-content-between mb-3"> 
+        <div class="userNumber UDetail">
+        <h6 class="mb-0">Contact No</h6>
+        <p>${items[i].ContactNumber?items[i].ContactNumber:"N/A"}</p>
+        </div>
+         <div class="userDepart UDetail">
+         <h6 class="mb-0">Department</h6>
+        ${deptHTML?deptHTML:"N/A"}
+         </div>
+         
+        </div>
+        <div class="user-info d-flex justify-content-between">
+        <div class="user-Country UDetail">
+        <h6 class="mb-0">Country</h6>
+        <p class="m-0">${items[i].Country?items[i].Country:"N/A"}</p>
+        </div>
+        <div class="user-House UDetail">
+        <h6 class="mb-0">House name</h6>
+        <p class="m-0">${items[i].HouseName?items[i].HouseName:"N/A"}</p>
+        </div>
+        
+        </div>
+        </div>
+    
+        </div>`
+      }
+    }
+    $('.team-employees').html("")
+    $('.team-employees').html(html);
+
   }
 
   protected get dataVersion(): Version {
