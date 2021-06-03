@@ -241,9 +241,9 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
     var html=""
     var deptHTML="";
     var designationHTML="";
-    await sp.web.lists.getByTitle("MeetTheTeam").items.top(5000).select("*,EmployeeName/EMail").expand("EmployeeName").filter("Department ne 'Delivery (Utopus)'").get().then(async (list: any[]) => 
+    await sp.web.lists.getByTitle("MeetTheTeam").items.top(5000).select("*,EmployeeName/EMail").expand("EmployeeName").filter("Department ne 'Delivery (Utopus)'").orderBy("ShowOrder",true).get().then(async (list: any[]) => 
     {
-
+ 
       let items = [];
       let nonLeader = [];
       list.forEach((li)=>{

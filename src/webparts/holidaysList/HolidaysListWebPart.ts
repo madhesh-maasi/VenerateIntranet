@@ -55,7 +55,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
       </div>
       <div class="holiday  d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
+      <div class="holiday-date">12/25/2021</div>  
       </div>
       </div>
       <div class="tab-pane fade show active" id="india" role="tabpanel" aria-labelledby="india-tab">

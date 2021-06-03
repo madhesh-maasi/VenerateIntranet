@@ -25,12 +25,21 @@
           "manifest": "./src/webparts/meetTheTeam/MeetTheTeamWebPart.manifest.json"
         }
       ]
+    },
+    "holiday-extended-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/holidayExtended/HolidayExtendedWebPart.js",
+          "manifest": "./src/webparts/holidayExtended/HolidayExtendedWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "CheckListWebPartStrings": "lib/webparts/checkList/loc/{locale}.js",
     "HolidaysListWebPartStrings": "lib/webparts/holidaysList/loc/{locale}.js",
-    "MeetTheTeamWebPartStrings": "lib/webparts/meetTheTeam/loc/{locale}.js"
+    "MeetTheTeamWebPartStrings": "lib/webparts/meetTheTeam/loc/{locale}.js",
+    "HolidayExtendedWebPartStrings": "lib/webparts/holidayExtended/loc/{locale}.js"
   }
 }
