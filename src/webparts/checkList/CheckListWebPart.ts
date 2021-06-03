@@ -196,7 +196,7 @@ async function getChecklist(Checklistname)
   var html="";  
   await sp.web.lists
     .getByTitle("Getting Started Checklist")
-    .items.filter("TypeOfChecklist eq '"+Checklistname+"'").orderBy("Order",true).get() .then((items: any[]) => 
+    .items.filter("TypeOfChecklist eq '"+Checklistname+"'").orderBy("Order0",true).get() .then((items: any[]) => 
     {
       
       if(items.length>0)
