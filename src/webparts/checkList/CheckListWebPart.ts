@@ -51,7 +51,7 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
     <defs> 
       <linearGradient id="boxGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="25" y2="25">
         <stop offset="0%"   stop-color="#27FDC7"/>
-        <stop offset="100%" stop-color="#0FC0F5"/>
+        <stop offset="100%" stop-color="#0FC0F5"/>  
       </linearGradient>
    
       <linearGradient id="lineGradient">
@@ -215,18 +215,18 @@ async function getChecklist(Checklistname)
         
         html+=`    <label class="todo">
         <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox" ${strChecked}/>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 25" class="todo__icon">
-          <use xlink:href="#todo__line" class="todo__line"></use>
+          
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 25" class="todo__icon">
+          
           <use xlink:href="#todo__box" class="todo__box"></use>
           <use xlink:href="#todo__check" class="todo__check"></use>
           <use xlink:href="#todo__circle" class="todo__circle"></use>
         </svg>
         
         <div class="todo__text" data-id="${items[i].ID}">${items[i].Checklist}</div>
-      </label>`;
+      </label>`;  
       }
-
+      
       $("#divtodolist").html("");
       $("#divtodolist").html(html);
      
@@ -268,16 +268,16 @@ async function checkuseralreadyinlist()
       
       getChecklist(propertyvalue);
 
-      })
+      })  
       .catch(function (error) {
         ErrorCallBack(error, "checkuseralreadyinlist");
       });
 }
 
 async function insertchecklist(selectedItemId)
-{
+{ 
 
-  // if(!flgcheckuseralreadyinlist)
+  // if(!flgcheckuseralreadyinlist)  
   // {
     var intitemId = parseInt(selectedItemId)
     var requestdata=
@@ -311,8 +311,8 @@ async function insertchecklist(selectedItemId)
 //         ErrorCallBack(error, "insertchecklistupdate");
 //       });
 // }
+   
   
-      
 }
 
 function AlertMessage(strMewssageEN) {

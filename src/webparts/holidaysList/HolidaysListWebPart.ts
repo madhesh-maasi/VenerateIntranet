@@ -121,7 +121,7 @@ export default class HolidaysListWebPart extends BaseClientSideWebPart<IHolidays
     </div>  
   </div>
   </div>
-  <div class="accordion-item">
+  <div class="accordion-item d-none">
     <h2 class="accordion-header" id="headingFour">
       <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
         Weekend Holidays
