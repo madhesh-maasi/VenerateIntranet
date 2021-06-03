@@ -93,7 +93,7 @@
   height: auto;
   margin: auto;
   fill: none;
-  stroke: #27fdc7;
+  stroke: #0070c0;
   stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -104,7 +104,7 @@
   transition: stroke-dashoffset 0.8s cubic-bezier(0.9, 0, 0.5, 1);
 }
 .todo__circle {
-  stroke: #27fdc7;
+  stroke: #0070c0;
   stroke-dasharray: 1 6;
   stroke-width: 0;
   transform-origin: 13.5px 12.5px;
@@ -129,7 +129,7 @@
   transition-delay: 0.16s;
 }
 .todo__check {
-  stroke: #27fdc7;
+  stroke: #0070c0;
   stroke-dasharray: 9.8995, 9.8995;
   stroke-dashoffset: 9.8995;
   transition-duration: 0.32s;
@@ -143,44 +143,18 @@
   animation-duration: 0.56s;
 }
 
-.text-stike {
-  position: absolute;
-  top: 34px;
-  height: 4px;
-  background: linear-gradient(to right, #0fc0f5, #27fdc7);
-  width: 100%;
-  max-width: 1000px;
-  border-radius: 20px;
-  display: none;
-  animation: widthShrink 0.8s;
-}
 .todo__state:checked ~ .text-stike {
   display: block;
   animation-name: widthGrow;
   animation-duration: 0.8s;
 }
-@keyframes widthShrink {
-  0% {
-    width: 100%;
-  }
-  100% {
-    width: 0%;
-  }
-}
-@keyframes widthGrow {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
+
 .todo__state:checked ~ .todo__text {
   transition-delay: 0s;
   color: #8a8a8a;
   /* opacity: 0.6; */
   text-decoration: line-through;
-  text-decoration-color: #0fc0f5;
+  text-decoration-color: #0070c0;
   text-decoration-thickness: 3px;
 }
 .todo__state:checked ~ .todo__icon .todo__box {
@@ -298,6 +272,34 @@ body {
   );
   height: 2.5rem;
 }
+.profile-cover.Ravenclaw {
+  /* background: linear-gradient(90deg, #0e1a40 35%, #946b2d 100%); */
+  background: #0e1a40;
+}
+.profile-cover.Hufflepuff {
+  /* background: linear-gradient(90deg, #ffd800 35%, #000000 100%); */
+  background: #ffd800;
+}
+.profile-cover.Slytherin {
+  /* background: linear-gradient(90deg, #1a472a 35%, #5d5d5d 100%); */
+  background: #1a472a;
+}
+.profile-cover.Gryffindor {
+  /* background: linear-gradient(90deg, #740001 35%, #d3a625 100%); */
+  background: #740001;
+}
+.profile-cover.Ravenclaw #profileImage {
+  background: #946b2d;
+}
+.profile-cover.Hufflepuff #profileImage {
+  background: #000000;
+}
+.profile-cover.Slytherin #profileImage {
+  background: #5d5d5d;
+}
+.profile-cover.Gryffindor #profileImage {
+  background: #d3a625;
+}
 .section-employee img {
   position: relative;
   left: 1rem;
@@ -404,4 +406,6 @@ body {
 }
 button.btn.btn-sm.btn-danger.reset {
   padding: 3px 13px !important;
+  background: #0078d4 !important;
+  border: 1px solid #0078d4 !important;
 }

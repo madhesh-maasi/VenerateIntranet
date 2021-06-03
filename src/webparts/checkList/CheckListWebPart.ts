@@ -50,13 +50,13 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
     <svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
     <defs> 
       <linearGradient id="boxGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="25" y2="25">
-        <stop offset="0%"   stop-color="#27FDC7"/>
-        <stop offset="100%" stop-color="#0FC0F5"/>  
+        <stop offset="0%"   stop-color="#0070c0"/>
+        <stop offset="100%" stop-color="#0070c0"/>  
       </linearGradient>
    
       <linearGradient id="lineGradient">
-        <stop offset="0%"    stop-color="#0FC0F5"/>
-        <stop offset="100%"  stop-color="#27FDC7"/>
+        <stop offset="0%"    stop-color="#0070c0"/>
+        <stop offset="100%"  stop-color="#0070c0"/>
       </linearGradient>
   
       <path id="todo__line" stroke="url(#lineGradient)" d="M21 12.3h168v0.1z"></path>
@@ -65,7 +65,7 @@ export default class CheckListWebPart extends BaseClientSideWebPart<ICheckListWe
       <circle id="todo__circle" cx="13.5" cy="12.5" r="10"></circle>
     </defs>
   </svg>  
-  
+   
    
   <div class="todo-list" id="divtodolist">
 
