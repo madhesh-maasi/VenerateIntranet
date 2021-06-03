@@ -422,7 +422,8 @@ button.btn.btn-sm.btn-danger.reset {
 }
 /* HolidayExtended */
 .holiday-tile {
-  width: 15rem;
+  background: #fff;
+  width: 20rem;
   box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
@@ -432,7 +433,7 @@ button.btn.btn-sm.btn-danger.reset {
   color: #fff !important;
 }
 .holidayExtended .tab-pane {
-  background: #e9e9e9;
+  background: #f1f9ff;
   padding: 1rem;
 }
 .holidayExtended .nav-link {
@@ -456,4 +457,8 @@ button.btn.btn-sm.btn-danger.reset {
 }
 .holidayExtended .nav-tabs {
   border-bottom: 0 !important;
+}
+.section-holidays {
+  max-width: 67rem;
+  margin: auto;
 }

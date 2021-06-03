@@ -31,12 +31,10 @@ export default class HolidayExtendedWebPart extends BaseClientSideWebPart<IHolid
     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">India</button>
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">United Kingdom</button>
   </div>
-</nav>
+</nav>  
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-  <div class="text-end my-2">
-  <button class="btn btn-theme rounded-0">This Month</button>
-  </div>  
+  
 
   <div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
@@ -49,53 +47,31 @@ export default class HolidayExtendedWebPart extends BaseClientSideWebPart<IHolid
       <div class="accordion-body p-2">
       <div class="section-holidays d-flex flex-wrap">
 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
-      <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
-      </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
-      <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
-      </div> 
-
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
-      <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
-      </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
-      <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
-      </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
-      <div class="holiday-day">Christmas</div>
-      <div class="holiday-date">12/25/2021</div> 
-      </div> 
-      <div class="holiday-tile p-3 m-2 d-flex justify-content-between">
+      <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
       <div class="holiday-day">Christmas</div>
       <div class="holiday-date">12/25/2021</div> 
       </div> 
@@ -132,7 +108,23 @@ export default class HolidayExtendedWebPart extends BaseClientSideWebPart<IHolid
   
   
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div class="section-holidays d-flex flex-wrap">
+  <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
+      <div class="holiday-day">Christmas</div>
+      <div class="holiday-date">12/25/2021</div> 
+      </div> <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
+      <div class="holiday-day">Christmas</div>
+      <div class="holiday-date">12/25/2021</div> 
+      </div> <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
+      <div class="holiday-day">Christmas</div>
+      <div class="holiday-date">12/25/2021</div> 
+      </div> <div class="holiday-tile p-3 m-3 d-flex justify-content-between">
+      <div class="holiday-day">Christmas</div>
+      <div class="holiday-date">12/25/2021</div> 
+      </div> 
+  </div>
+  </div>
 </div>
     </div>
     </div>  
@@ -142,10 +134,10 @@ export default class HolidayExtendedWebPart extends BaseClientSideWebPart<IHolid
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
-
+ 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
-      pages: [
+      pages: [ 
         {
           header: {
             description: strings.PropertyPaneDescription
