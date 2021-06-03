@@ -220,9 +220,8 @@ body {
 .holiday-section .nav-tabs {
   border-bottom: 0 !important;
 }
-#header-name
-{
-  color:#000000 !important;
+#header-name {
+  color: #000000 !important;
 }
 /*
 .holiday-section .nav-link.active,
@@ -316,7 +315,7 @@ body {
   -moz-box-shadow: 2px 2px 18px -1px #5f5f5fbf;
 }
 .section-employee {
-  width: 14rem;
+  width: 16.9rem;
 }
 .section-employee h5 {
   color: #004e8c;
@@ -377,7 +376,7 @@ body {
   background-repeat: no-repeat;
 }
 .UDetail {
-  width: 4.7rem;
+  width: 7rem;
 }
 .team-section select,
 .team-section input {
@@ -412,4 +411,49 @@ button.btn.btn-sm.btn-danger.reset {
   padding: 3px 13px !important;
   background: #0078d4 !important;
   border: 1px solid #0078d4 !important;
+}
+.todo-list.New-Joinee-Checklist,
+.todo-list.Brand-Compliance-Checklist {
+  width: 18rem;
+}
+.todo-list.New-Joinee-Checklist h3#header-name,
+.todo-list.Brand-Compliance-Checklist h3#header-name {
+  font-size: 1.2rem;
+}
+/* HolidayExtended */
+.holiday-tile {
+  width: 15rem;
+  box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -1px 3px 11px 2px rgba(0, 0, 0, 0.1);
+}
+.btn-theme {
+  background: #0078d4 !important;
+  color: #fff !important;
+}
+.holidayExtended .tab-pane {
+  background: #e9e9e9;
+  padding: 1rem;
+}
+.holidayExtended .nav-link {
+  color: #383838 !important;
+  font-size: 1rem;
+}
+.holidayExtended .nav-tabs .nav-link {
+  border: 0 !important;
+}
+.holidayExtended .nav-tabs .nav-link:hover {
+  border: 0 !important;
+}
+.holidayExtended .nav-link.active:hover {
+  border-bottom: 2px solid #004e8c !important;
+}
+.holidayExtended .nav-link.active {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 2px solid #004e8c !important;
+}
+.holidayExtended .nav-tabs {
+  border-bottom: 0 !important;
 }

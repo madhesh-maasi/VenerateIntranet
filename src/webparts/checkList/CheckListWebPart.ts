@@ -193,7 +193,8 @@ async function refreshList() {
 
 async function getChecklist(Checklistname)
 {
-  var html="";  
+  var html="";
+  let className = Checklistname.split(" ").join("-")
   await sp.web.lists
     .getByTitle("Getting Started Checklist")
     .items.filter("TypeOfChecklist eq '"+Checklistname+"'").orderBy("Order0",true).get() .then((items: any[]) => 
@@ -212,8 +213,8 @@ async function getChecklist(Checklistname)
             if(items[i].ID==arrAlreadyAddedchecklists[j])
             strChecked="checked=true";
         }
-        
-        html+=`    <label class="todo">
+        if(Checklistname == "Getting started checklist"){
+        html+=`    <label class="todo ${className}">
         <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox" ${strChecked}/>
           
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 25" class="todo__icon">
@@ -224,9 +225,23 @@ async function getChecklist(Checklistname)
         </svg>
         
         <div class="todo__text" data-id="${items[i].ID}">${items[i].Checklist}</div>
-      </label>`;  
+      </label>`;  }
+          else{
+            html+=`    <label class="todo ${className}">
+        <input data-id="${items[i].ID}" class="todo__state clschkbox" type="checkbox" ${strChecked}/>
+          
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg> 
+        
+        <div class="todo__text" data-id="${items[i].ID}">${items[i].Checklist}</div>
+      </label>`;
+          }
       }
-      
+      $("#divtodolist").addClass(className);
       $("#divtodolist").html("");
       $("#divtodolist").html(html);
      
