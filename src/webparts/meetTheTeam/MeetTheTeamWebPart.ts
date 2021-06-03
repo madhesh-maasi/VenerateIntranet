@@ -20,6 +20,7 @@ export interface IMeetTheTeamWebPartProps {
   description: string;
 }
 var allData=[];
+var changedData=[];
 var selectedDesignation;
 var selectedDept;
 var selectedDOJ,selectedDOB,selectedCountry,selectedHousename;
@@ -248,7 +249,7 @@ export default class MeetTheTeamWebPart extends BaseClientSideWebPart<IMeetTheTe
 
   async fetchFilterDropDowns(propName,ID)
   {
-    var designationHTML="<option value=''>select</option>";
+    var designationHTML="<option value=''>Select</option>";
     await sp.web.lists.getByTitle("MeetTheTeam").fields.filter("EntityPropertyName eq '"+propName+"'").get().then((items: any) => 
     {
       if(items[0].Choices.length>0)

@@ -294,6 +294,8 @@ function getregiondays(region)
   var html="";
   for(var i=0;i<arrHolidays.length;i++)
   {
+    if(arrHolidays[i].Region)
+    {
     for(var j=0;j<arrHolidays[i].Region.length;j++)
     {
       if(arrHolidays[i].Region[j]==region&&arrHolidays[i].Country=="India")
@@ -304,7 +306,8 @@ function getregiondays(region)
         <div class="holiday-date">${date}</div> 
         </div>`;
       }
-    }  
+    } 
+  } 
   }
 
   return html;
