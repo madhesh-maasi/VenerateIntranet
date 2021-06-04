@@ -32,7 +32,7 @@ export default class HolidayExtendedWebPart extends BaseClientSideWebPart<IHolid
   public render(): void {
     this.domElement.innerHTML = `
     <div class="holidayExtended">
-    <h4>Holidays - This month</h4>
+    <h4 class="p-2">Holidays - This month</h4>
     <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">India</button>
@@ -183,7 +183,7 @@ async function getUKHolidays()
   }
   else
   {
-    html+=`<h5>No Holidays for this month</h5>`;
+    html+=`<h5  class="pt-2">No Holidays for this month</h5>`;
   }
 
 
@@ -203,7 +203,7 @@ function getIndiaHolidays()
       ${arrRegions[0][i]}
       </button>
     </h2>
-    <div id="collapse${i}" class="accordion-collapse collapse " aria-labelledby="heading${i}" data-bs-parent="#accordionExample">
+    <div id="collapse${i}" class="accordion-collapse collapse " aria-labelledby="heading${i}" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body p-2"> <div class="section-holidays d-flex flex-wrap">
         ${getregiondays(arrRegions[0][i])}
       </div> </div>
@@ -255,7 +255,7 @@ function getregiondays(region)
 }
 else
 {
-  html+=`<h5>No Holidays for this month</h5>`
+  html+=`<h5  class="pt-2">No Holidays for this month</h5>`
 }
 
   return html;

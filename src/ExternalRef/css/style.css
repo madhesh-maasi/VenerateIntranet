@@ -33,7 +33,9 @@
 .todo-list {
   background: #fff;
   font-size: 20px;
-  width: 67rem;
+  /* width: 67rem; */
+  width: 56rem;
+
   margin: auto;
   padding: 0.5rem 1rem;
   /* box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2); */
@@ -83,6 +85,7 @@
   color: #135156;
   transition: all 0.4s linear 0.4s;
   font-size: 0.9rem;
+  word-break: break-word;
 }
 .todo__icon {
   position: absolute;
